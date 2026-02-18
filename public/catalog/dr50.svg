@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240" fill="none">
+  <rect width="400" height="240" fill="#422006"/>
+  <rect x="40" y="50" width="320" height="140" rx="8" fill="#713f12" opacity="0.95"/>
+  <rect x="160" y="70" width="80" height="100" fill="#92400e"/>
+  <rect x="80" y="120" width="60" height="50" rx="4" fill="#a16207"/>
+  <rect x="260" y="120" width="60" height="50" rx="4" fill="#a16207"/>
+  <text x="200" y="220" text-anchor="middle" fill="#fef3c7" font-family="system-ui,sans-serif" font-size="18" font-weight="600">DR-50 Heavy Duty</text>
+</svg>
