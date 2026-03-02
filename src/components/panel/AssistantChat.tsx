@@ -3,6 +3,7 @@
 import { useAppStore } from "@/lib/store/useAppStore";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SuggestedChips } from "./SuggestedChips";
+import { CustomizationBlock } from "./CustomizationBlock";
 import { sendAssistantMessage } from "@/lib/assistantSend";
 import Image from "next/image";
 
@@ -69,6 +70,11 @@ export function AssistantChat() {
                     </div>
                   )}
                 </div>
+                {m.role === "assistant" && m.poiId && (
+                  <div className="mr-4">
+                    <CustomizationBlock poiId={m.poiId} />
+                  </div>
+                )}
                 {m.role === "assistant" && (m.suggestedChips?.length || m.jumpPoiId) && (
                   <div className="mr-4 space-y-1.5 pl-1">
                     <p className="text-sm font-medium text-neutral-700">I can also tell you:</p>

@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { useAppStore } from "@/lib/store/useAppStore";
-import { getTourById, getPoiById, getPoisByScene } from "@/data/rig";
+import { getTourById, getPoiById, getPoisByScene, tours } from "@/data/rig";
 import { sendAssistantMessage } from "@/lib/assistantSend";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +15,6 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-
-const DEFAULT_QUICK_TOUR_ID = "valueTour";
 
 export function TourTimelineBar() {
   const {
@@ -43,15 +42,34 @@ export function TourTimelineBar() {
   const completedCount = tourStepIndex + (tourStepIndex >= steps.length ? 0 : 1);
   const remainingCount = Math.max(0, steps.length - tourStepIndex - 1);
 
-  const handleStartTour = () => {
-    startTour(DEFAULT_QUICK_TOUR_ID);
-    const t = getTourById(DEFAULT_QUICK_TOUR_ID);
+  const [tourDropdownOpen, setTourDropdownOpen] = useState(false);
+  const tourDropdownRef = useRef<HTMLDivElement>(null);
+  const tourTriggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!tourDropdownOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        tourDropdownRef.current && !tourDropdownRef.current.contains(e.target as Node) &&
+        tourTriggerRef.current && !tourTriggerRef.current.contains(e.target as Node)
+      ) {
+        setTourDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [tourDropdownOpen]);
+
+  const handleStartTour = (tourId: string) => {
+    startTour(tourId);
+    const t = getTourById(tourId);
     const firstPoi = t?.steps[0]?.poiId;
     if (firstPoi) {
       setActivePoi(firstPoi);
       const poi = getPoiById(firstPoi);
       if (poi) sendAssistantMessage("Tell me about " + poi.title);
     }
+    setTourDropdownOpen(false);
   };
 
   const handlePrev = () => {
@@ -143,15 +161,42 @@ export function TourTimelineBar() {
     >
       {!isTourActive ? (
         <div className="flex flex-wrap items-center gap-2">
-          <Button
-            size="sm"
-            className="h-9 gap-1.5 rounded-lg bg-neutral-900 text-white hover:bg-neutral-800 px-3"
-            onClick={handleStartTour}
-            aria-label="Start tour"
-          >
-            <Play className="size-4" weight="fill" />
-            Start tour
-          </Button>
+          <div className="relative">
+            <Button
+              ref={tourTriggerRef}
+              size="sm"
+              className="h-9 gap-1.5 rounded-lg bg-neutral-900 text-white hover:bg-neutral-800 px-3"
+              onClick={() => setTourDropdownOpen((v) => !v)}
+              aria-label="Start tour"
+              aria-expanded={tourDropdownOpen}
+              aria-haspopup="listbox"
+            >
+              <Play className="size-4" weight="fill" />
+              Start tour
+            </Button>
+            {tourDropdownOpen && (
+              <div
+                ref={tourDropdownRef}
+                role="listbox"
+                className="absolute left-0 bottom-full mb-1.5 z-[100] min-w-[200px] rounded-xl border border-neutral-200 bg-white py-1 shadow-lg"
+              >
+                {tours.map((t) => (
+                  <button
+                    key={t.id}
+                    role="option"
+                    type="button"
+                    onClick={() => handleStartTour(t.id)}
+                    className="w-full px-3 py-2.5 text-left text-sm text-neutral-900 hover:bg-neutral-100 first:rounded-t-xl last:rounded-b-xl"
+                  >
+                    <span className="font-medium">{t.title}</span>
+                    {t.durationEstimate && (
+                      <span className="block text-xs text-neutral-500 mt-0.5">{t.durationEstimate}</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <div className="flex shrink-0 items-center gap-0.5 rounded-lg border border-neutral-200 bg-neutral-50 p-0.5 ml-auto">
             <Button
               variant="ghost"
@@ -197,7 +242,7 @@ export function TourTimelineBar() {
                 aria-valuemin={1}
                 aria-valuemax={steps.length}
               />
-              <span className="shrink-0 text-xs font-medium text-neutral-600 tabular-nums">
+              <span className="shrink-0 text-sm font-medium text-neutral-600 tabular-nums">
                 {tourStepIndex + 1}/{steps.length}
               </span>
             </div>
@@ -256,7 +301,7 @@ export function TourTimelineBar() {
                     type="button"
                     onClick={() => handleStepClick(i)}
                     className={cn(
-                      "shrink-0 w-[160px] sm:w-[200px] rounded-xl border p-2.5 text-left transition-colors outline-none",
+                      "shrink-0 min-w-[100px] w-max max-w-[260px] rounded-xl border px-3 py-2.5 pr-4 text-left transition-colors outline-none",
                       isCurrent &&
                         "bg-white border-2 border-neutral-800 shadow-md shadow-neutral-900/10",
                       !isCurrent && "border border-neutral-200 bg-neutral-50 hover:bg-neutral-100 hover:border-neutral-300",
@@ -267,7 +312,7 @@ export function TourTimelineBar() {
                     <div className="flex items-center gap-2">
                       <span
                         className={cn(
-                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-medium leading-none",
+                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-sm font-medium leading-none",
                           isDone && "bg-neutral-600 text-white",
                           isCurrent && "border-2 border-neutral-600 bg-white text-neutral-900",
                           !isDone && !isCurrent && "bg-neutral-200 text-neutral-600"
@@ -276,7 +321,7 @@ export function TourTimelineBar() {
                         {isDone ? <Check className="size-3.5" weight="bold" /> : i + 1}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="font-medium text-sm text-neutral-900 truncate" title={poi?.title}>
+                        <p className="font-medium text-sm text-neutral-900 whitespace-nowrap" title={poi?.title}>
                           {poi?.title ?? step.poiId}
                         </p>
                       </div>

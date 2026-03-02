@@ -14,6 +14,8 @@ export interface ChatMessage {
   suggestedChips?: string[];
   /** POI to jump to when user clicks "Jump to component" for this message */
   jumpPoiId?: string | null;
+  /** When set, show customization block after this assistant message (response to POI click) */
+  poiId?: string | null;
 }
 
 export interface AudioToggles {

@@ -341,6 +341,19 @@ export function getVariantsByModule(moduleId: string): Variant[] {
   return variants.filter((v) => v.moduleId === moduleId);
 }
 
+/** Module IDs to show in customization block for this POI (only this part of the object). */
+const poiModuleIds: Record<string, string[]> = {
+  overview: [],
+  engine: ["chassis"],
+  mast: ["drillingUnit"],
+  hydraulics: ["chassis"],
+  cabin: ["cabin"],
+};
+
+export function getModulesForPoi(poiId: string): string[] {
+  return poiModuleIds[poiId] ?? [];
+}
+
 export function getTourById(id: string): Tour | undefined {
   return tours.find((t) => t.id === id);
 }

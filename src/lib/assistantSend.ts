@@ -52,6 +52,7 @@ export async function sendAssistantMessage(text: string): Promise<void> {
       ...(responseImages?.length ? { images: responseImages } : {}),
       ...(responseChips?.length ? { suggestedChips: responseChips.slice(0, 3) } : {}),
       ...(responseJumpPoiId != null ? { jumpPoiId: responseJumpPoiId } : {}),
+      ...(activePoiId ? { poiId: activePoiId } : {}),
     });
   } catch {
     useAppStore.getState().addChatMessage({
