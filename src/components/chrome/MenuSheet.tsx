@@ -29,18 +29,20 @@ interface MenuSheetProps {
   onOpenChange: (open: boolean) => void;
 }
 
+type IconProps = { className?: string; weight?: "bold" | "fill" | "duotone" | "light" | "regular" | "thin" };
+
 type MenuItem =
   | {
       id: string;
       label: string;
-      Icon: React.ComponentType<{ className?: string }>;
+      Icon: React.ComponentType<IconProps>;
       href: string;
       external?: boolean;
     }
   | {
       id: string;
       label: string;
-      Icon: React.ComponentType<{ className?: string }>;
+      Icon: React.ComponentType<IconProps>;
       handler: (close: () => void, ...args: unknown[]) => void;
     };
 

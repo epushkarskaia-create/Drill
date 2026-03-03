@@ -2,7 +2,6 @@
 
 import { useAppStore } from "@/lib/store/useAppStore";
 import { cn } from "@/lib/utils";
-import type { Icon } from "@phosphor-icons/react/dist/ssr";
 import { Question } from "@phosphor-icons/react/dist/ssr";
 
 interface SuggestedChipsProps {
@@ -11,8 +10,6 @@ interface SuggestedChipsProps {
   chips?: string[];
   jumpPoiId?: string | null;
   onJumpToPoi?: (poiId: string) => void;
-  /** Optional icon to show to the left of each chip */
-  Icon?: Icon;
   className?: string;
 }
 
@@ -21,7 +18,6 @@ export function SuggestedChips({
   chips: chipsProp,
   jumpPoiId: jumpPoiIdProp,
   onJumpToPoi,
-  Icon: IconComponent,
   className,
 }: SuggestedChipsProps) {
   const storeChips = useAppStore((s) => s.suggestedChips);

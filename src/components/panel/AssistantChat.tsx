@@ -5,7 +5,6 @@ import { useAppStore } from "@/lib/store/useAppStore";
 import { SuggestedChips } from "./SuggestedChips";
 import { CustomizationBlock } from "./CustomizationBlock";
 import { sendAssistantMessage } from "@/lib/assistantSend";
-import { getTourById, getPoiById } from "@/data/rig";
 import {
   Sparkle,
   Compass,
@@ -29,7 +28,6 @@ export function AssistantChat() {
     setRightPanelTab,
     streamingContent,
     setLastJumpPoiId,
-    startTour,
   } = useAppStore();
   const chatScrollRef = useRef<HTMLDivElement>(null);
 
@@ -47,17 +45,6 @@ export function AssistantChat() {
   };
 
   const handleGeneralSuggestion = (item: (typeof GENERAL_SUGGESTIONS)[0]) => {
-    if (item.action === "startTour") {
-      startTour("valueTour");
-      const t = getTourById("valueTour");
-      const firstPoiId = t?.steps[0]?.poiId;
-      if (firstPoiId) {
-        setActivePoi(firstPoiId);
-        const poi = getPoiById(firstPoiId);
-        if (poi) sendAssistantMessage("Tell me about " + poi.title);
-      }
-      return;
-    }
     if (item.message) sendAssistantMessage(item.message);
   };
 

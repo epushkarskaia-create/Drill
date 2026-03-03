@@ -17,7 +17,7 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
 /** Bar tour buttons: when there are more than 2 tours, switch back to dropdown (see handleStartTour). */
-const BAR_TOUR_BUTTONS: { tourId: string; label: string; icon: React.ComponentType<{ className?: string; weight?: "fill" }> }[] = [
+const BAR_TOUR_BUTTONS: { tourId: string; label: string; icon: React.ComponentType<{ className?: string; weight?: "bold" | "fill" }> }[] = [
   { tourId: "startupTour", label: "Training tour", icon: Book },
   { tourId: "valueTour", label: "Introductory tour", icon: Compass },
 ];
