@@ -39,7 +39,7 @@ export default function ContactPage() {
           href="/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
         >
-          <ArrowLeft className="size-4" />
+          <ArrowLeft className="size-4 text-neutral-500" weight="bold" />
           Back to viewer
         </Link>
         <Card>

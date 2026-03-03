@@ -44,8 +44,14 @@ function DesertScene() {
   );
 }
 
-const INITIAL_CAMERA_POSITION: [number, number, number] = [4, 3, 4];
-const CAMERA_TARGET: [number, number, number] = [0, 1.2, 0];
+const EXTERIOR_CAMERA_POSITION: [number, number, number] = [4, 3, 4];
+const EXTERIOR_CAMERA_TARGET: [number, number, number] = [0, 1.2, 0];
+/** Камера внутри кабины (оранжевый куб) — вид на панель/интерьер */
+const INTERIOR_CAMERA_POSITION: [number, number, number] = [0.75, 1.35, 0.5];
+const INTERIOR_CAMERA_TARGET: [number, number, number] = [1.1, 1.15, 0.25];
+
+const INITIAL_CAMERA_POSITION = EXTERIOR_CAMERA_POSITION;
+const CAMERA_TARGET = EXTERIOR_CAMERA_TARGET;
 
 const FLY_DURATION = 0.6;
 function easeOutCubic(t: number) {
@@ -72,9 +78,23 @@ function SceneContent() {
     setControlsReady(true);
   }, [camera]);
 
+  // При переключении Exterior/Interior — камера «проваливается» внутрь кабины или возвращается снаружи
+  useLayoutEffect(() => {
+    if (!orbitRef.current) return;
+    animStartTime.current = null;
+    const controls = orbitRef.current;
+    const [pos, tgt] = sceneMode === "interior"
+      ? [INTERIOR_CAMERA_POSITION, INTERIOR_CAMERA_TARGET]
+      : [EXTERIOR_CAMERA_POSITION, EXTERIOR_CAMERA_TARGET];
+    camera.position.set(pos[0], pos[1], pos[2]);
+    controls.target.set(tgt[0], tgt[1], tgt[2]);
+    camera.lookAt(controls.target);
+    camera.updateProjectionMatrix();
+  }, [sceneMode, camera]);
+
   const resetTrigger = resetViewTrigger;
   const poiId = activePoiId ?? null;
-  const flyDeps: [number, string | null] = [resetTrigger, poiId];
+  const mode = sceneMode ?? "exterior";
   useEffect(() => {
     if (!orbitRef.current) return;
     const controls = orbitRef.current;
@@ -82,7 +102,10 @@ function SceneContent() {
     const pos3d = poi?.position3d;
     if (pos3d) {
       const target = new THREE.Vector3(pos3d.x, pos3d.y, pos3d.z);
-      const offset = new THREE.Vector3(INITIAL_CAMERA_POSITION[0] - CAMERA_TARGET[0], INITIAL_CAMERA_POSITION[1] - CAMERA_TARGET[1], INITIAL_CAMERA_POSITION[2] - CAMERA_TARGET[2]);
+      const [basePos, baseTgt] = mode === "interior"
+        ? [INTERIOR_CAMERA_POSITION, INTERIOR_CAMERA_TARGET]
+        : [EXTERIOR_CAMERA_POSITION, EXTERIOR_CAMERA_TARGET];
+      const offset = new THREE.Vector3(basePos[0] - baseTgt[0], basePos[1] - baseTgt[1], basePos[2] - baseTgt[2]);
       const toCamera = target.clone().add(offset);
       animFromTarget.current.copy(controls.target);
       animToTarget.current.copy(target);
@@ -91,9 +114,15 @@ function SceneContent() {
       animStartTime.current = performance.now();
     } else {
       animStartTime.current = null;
-      controls.reset();
+      const [pos, tgt] = mode === "interior"
+        ? [INTERIOR_CAMERA_POSITION, INTERIOR_CAMERA_TARGET]
+        : [EXTERIOR_CAMERA_POSITION, EXTERIOR_CAMERA_TARGET];
+      camera.position.set(pos[0], pos[1], pos[2]);
+      controls.target.set(tgt[0], tgt[1], tgt[2]);
+      camera.lookAt(controls.target);
+      camera.updateProjectionMatrix();
     }
-  }, flyDeps);
+  }, [resetTrigger, poiId, mode]);
 
   useFrame(() => {
     if (animStartTime.current === null || !orbitRef.current) return;

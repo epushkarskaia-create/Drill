@@ -10,7 +10,7 @@ export default function LegalPage() {
           href="/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
         >
-          <ArrowLeft className="size-4" />
+          <ArrowLeft className="size-4 text-neutral-500" weight="bold" />
           Back
         </Link>
         <article className="prose prose-neutral dark:prose-invert max-w-none">

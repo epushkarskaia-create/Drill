@@ -35,7 +35,7 @@ export function ChatInputBar() {
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-neutral-600 hover:bg-neutral-100 shadow-sm"
           aria-label={listening ? "Stop listening" : "Voice input"}
         >
-          <Microphone className="size-4" weight={listening ? "fill" : "regular"} />
+          <Microphone className="size-4 text-neutral-500" weight="bold" />
         </button>
       </div>
     </div>

@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeSync } from "@/components/ThemeSync";
+import { BackgroundMusic } from "@/components/audio/BackgroundMusic";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,6 +37,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeSync />
+        <BackgroundMusic />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>

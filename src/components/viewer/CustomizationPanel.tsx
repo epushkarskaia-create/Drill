@@ -80,7 +80,7 @@ function VariantChip({
     >
       {active && (
         <span className="absolute right-2 top-2 text-neutral-700">
-          <Check className="size-4" weight="bold" />
+          <Check className="size-4 text-neutral-500" weight="bold" />
         </span>
       )}
       <span className="font-medium text-sm">{variant.title}</span>

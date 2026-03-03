@@ -25,7 +25,7 @@ export function EnvironmentSwitcher() {
           className={cn("gap-1.5", environment === id && "shadow-sm")}
           onClick={() => setEnvironment(id)}
         >
-          <Icon className="size-4" />
+          <Icon className="size-4 text-neutral-500" weight="bold" />
           {label}
         </Button>
       ))}

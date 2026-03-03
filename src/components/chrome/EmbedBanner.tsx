@@ -10,7 +10,7 @@ export function EmbedBanner() {
         href="/"
         className="inline-flex items-center gap-1.5 rounded-md bg-background/90 px-2.5 py-1.5 text-xs font-medium text-foreground shadow-sm hover:bg-background border border-border"
       >
-        <ArrowSquareOut className="size-3.5" />
+        <ArrowSquareOut className="size-3.5 text-neutral-500" weight="bold" />
         Open full experience
       </Link>
     </div>

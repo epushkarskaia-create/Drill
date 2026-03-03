@@ -95,7 +95,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
                     className={cn("flex-1 gap-1.5", theme === id && "shadow-sm")}
                     onClick={() => setTheme(id)}
                   >
-                    <Icon className="size-4 shrink-0" />
+                    <Icon className="size-4 shrink-0 text-neutral-500" weight="bold" />
                     {label}
                   </Button>
                 ))}
@@ -106,7 +106,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
                 <div className="rounded-lg border border-neutral-200 bg-neutral-100/80 px-3 pt-3 pb-3 space-y-0">
                   <label className="flex h-10 items-center justify-between gap-3 cursor-pointer">
                     <span className="text-sm font-medium text-foreground flex items-center gap-3">
-                      <SpeakerHigh className="size-4 shrink-0 text-muted-foreground" />
+                      <SpeakerHigh className="size-4 shrink-0 text-neutral-500" weight="bold" />
                       Sound
                     </span>
                     <Switch
@@ -117,7 +117,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
                   <div className="rounded-md bg-neutral-200/60 mt-2 py-1.5 px-2 space-y-0">
                     <label className="flex h-9 items-center justify-between gap-3 cursor-pointer px-1 rounded hover:bg-neutral-300/40">
                       <span className="text-sm text-foreground flex items-center gap-3">
-                        <MusicNotes className="size-4 shrink-0 text-muted-foreground" />
+                        <MusicNotes className="size-4 shrink-0 text-neutral-500" weight="bold" />
                         Music
                       </span>
                       <button
@@ -138,7 +138,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
                     <div className="my-1 border-t border-neutral-300/80" />
                     <label className="flex h-9 items-center justify-between gap-3 cursor-pointer px-1 rounded hover:bg-neutral-300/40">
                       <span className="text-sm text-foreground flex items-center gap-3">
-                        <Microphone className="size-4 shrink-0 text-muted-foreground" />
+                        <Microphone className="size-4 shrink-0 text-neutral-500" weight="bold" />
                         Voice
                       </span>
                       <button
@@ -173,7 +173,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
                       onClick={close}
                     >
                       <Button variant="ghost" className={btnClass}>
-                        <Icon className="size-5 shrink-0" />
+                        <Icon className="size-5 shrink-0 text-neutral-500" weight="bold" />
                         {item.label}
                       </Button>
                     </Link>
@@ -189,7 +189,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
                       item.handler(close);
                     }}
                   >
-                    <Icon className="size-5 shrink-0" />
+                    <Icon className="size-5 shrink-0 text-neutral-500" weight="bold" />
                     {item.label}
                   </Button>
                 );

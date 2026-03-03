@@ -68,7 +68,7 @@ export function TourRunner() {
             <p className="text-base font-semibold text-neutral-900">Value & Advantages Tour</p>
             <p className="text-xs text-neutral-600 mt-0.5">3–5 min</p>
             <span className="mt-2 inline-flex items-center gap-2 rounded-lg bg-neutral-100 px-2 py-1 text-sm text-neutral-900">
-              <Play className="size-4" />
+              <Play className="size-4 text-neutral-500" weight="bold" />
               Start tour
             </span>
           </button>
@@ -80,7 +80,7 @@ export function TourRunner() {
             <p className="text-base font-semibold text-neutral-900">How to Start / Pre-start Checks</p>
             <p className="text-xs text-neutral-600 mt-0.5">5–7 min</p>
             <span className="mt-2 inline-flex items-center gap-2 rounded-lg bg-neutral-100 px-2 py-1 text-sm text-neutral-900">
-              <Play className="size-4" />
+              <Play className="size-4 text-neutral-500" weight="bold" />
               Start tour
             </span>
           </button>
@@ -106,7 +106,7 @@ export function TourRunner() {
               if (firstPoi) setActivePoi(firstPoi);
             }}
           >
-            <Play className="size-4" />
+            <Play className="size-4 text-neutral-500" weight="bold" />
             Restart tour
           </button>
           <button
@@ -161,7 +161,7 @@ export function TourRunner() {
                           : "bg-neutral-200 text-neutral-700"
                     }`}
                   >
-                    {isDone ? <Check className="size-3" weight="bold" /> : i + 1}
+                    {isDone ? <Check className="size-3 text-neutral-500" weight="bold" /> : i + 1}
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="font-medium text-sm text-neutral-900">{poi?.title ?? step.poiId}</p>
@@ -204,7 +204,7 @@ export function TourRunner() {
           }}
           className="rounded-xl bg-white border border-neutral-200 p-2 text-neutral-900 hover:bg-neutral-100 disabled:opacity-50"
         >
-          <CaretLeft className="size-4" />
+          <CaretLeft className="size-4 text-neutral-500" weight="bold" />
         </button>
         <button
           type="button"
@@ -217,7 +217,7 @@ export function TourRunner() {
           className="flex-1 rounded-xl bg-neutral-200 py-2 text-sm text-neutral-900 hover:bg-neutral-300 disabled:opacity-50 flex items-center justify-center gap-1"
         >
           Next
-          <CaretRight className="size-4" />
+          <CaretRight className="size-4 text-neutral-500" weight="bold" />
         </button>
       </div>
 

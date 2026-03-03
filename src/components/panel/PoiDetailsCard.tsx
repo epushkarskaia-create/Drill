@@ -98,7 +98,7 @@ export function PoiDetailsCard() {
                           type="button"
                           className="w-full flex items-center gap-2 rounded-xl bg-neutral-100 border border-neutral-200 px-3 py-2 text-sm text-neutral-900 hover:bg-neutral-200"
                         >
-                          <FilePdf className="size-4" />
+                          <FilePdf className="size-4 text-neutral-500" weight="bold" />
                           {d.title}
                         </button>
                       </DialogTrigger>

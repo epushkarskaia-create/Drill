@@ -54,7 +54,7 @@ export function EnvironmentSceneButton() {
           aria-label={ariaLabel}
           aria-expanded={open}
         >
-          <SunHorizon className="size-5 shrink-0" />
+          <SunHorizon className="size-5 shrink-0 text-neutral-500" weight="bold" />
         </Button>
       </div>
       {open && (

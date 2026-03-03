@@ -2,6 +2,8 @@
 
 import { useAppStore } from "@/lib/store/useAppStore";
 import { cn } from "@/lib/utils";
+import type { Icon } from "@phosphor-icons/react/dist/ssr";
+import { Question } from "@phosphor-icons/react/dist/ssr";
 
 interface SuggestedChipsProps {
   onSelect: (text: string) => void;
@@ -9,6 +11,8 @@ interface SuggestedChipsProps {
   chips?: string[];
   jumpPoiId?: string | null;
   onJumpToPoi?: (poiId: string) => void;
+  /** Optional icon to show to the left of each chip */
+  Icon?: Icon;
   className?: string;
 }
 
@@ -17,6 +21,7 @@ export function SuggestedChips({
   chips: chipsProp,
   jumpPoiId: jumpPoiIdProp,
   onJumpToPoi,
+  Icon: IconComponent,
   className,
 }: SuggestedChipsProps) {
   const storeChips = useAppStore((s) => s.suggestedChips);
@@ -26,6 +31,8 @@ export function SuggestedChips({
 
   if (!chips.length && !jumpPoiId) return null;
 
+  const chipClass = "inline-flex items-center gap-1.5 justify-start text-left rounded-xl bg-[#FFF5EB] pl-[10px] pr-3 py-2 text-[12px] font-medium text-[#E17100] hover:bg-[#FFEBD9] transition-colors border border-[#edd9c4] outline-none";
+
   return (
     <div className={cn("flex flex-wrap gap-2", className)}>
       {chips.slice(0, 3).map((chip) => (
@@ -33,8 +40,9 @@ export function SuggestedChips({
           key={chip}
           type="button"
           onClick={() => onSelect(chip)}
-          className="rounded-xl bg-white border border-neutral-200 px-3 py-2 text-xs text-neutral-900 hover:bg-neutral-100"
+          className={chipClass}
         >
+          <Question className="size-4 shrink-0 text-[#E17100]" weight="bold" />
           {chip}
         </button>
       ))}
@@ -42,8 +50,9 @@ export function SuggestedChips({
         <button
           type="button"
           onClick={() => onJumpToPoi(jumpPoiId)}
-          className="rounded-xl bg-white border border-neutral-200 px-3 py-2 text-xs text-neutral-900 hover:bg-neutral-100"
+          className={chipClass}
         >
+          <Question className="size-4 shrink-0 text-[#E17100]" weight="bold" />
           Jump to component
         </button>
       )}

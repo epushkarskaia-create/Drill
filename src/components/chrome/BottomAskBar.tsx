@@ -96,7 +96,7 @@ export function BottomAskBar() {
           onClick={() => setListening(!listening)}
           aria-label={listening ? "Stop listening" : "Voice input"}
         >
-          <Microphone className="size-4" />
+          <Microphone className="size-4 text-neutral-500" weight="bold" />
         </Button>
         <Button
           type="button"
@@ -106,7 +106,7 @@ export function BottomAskBar() {
           disabled={!input.trim() || assistantGenerating}
           aria-label="Send"
         >
-          <PaperPlaneTilt className="size-4" />
+          <PaperPlaneTilt className="size-4 text-neutral-500" weight="bold" />
         </Button>
       </div>
     </div>

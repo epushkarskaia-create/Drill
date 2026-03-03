@@ -43,7 +43,7 @@ export function TopBar() {
                 onClick={() => setMenuOpen(true)}
                 aria-label="Settings"
               >
-                <Gear className="size-5" />
+                <Gear className="size-5 text-neutral-500" weight="bold" />
               </Button>
             </div>
           )}
@@ -63,7 +63,7 @@ export function TopBar() {
               }}
               aria-label="Fullscreen"
             >
-              <ArrowsOut className="size-5" />
+              <ArrowsOut className="size-5 text-neutral-500" weight="bold" />
             </Button>
           </div>
         </div>

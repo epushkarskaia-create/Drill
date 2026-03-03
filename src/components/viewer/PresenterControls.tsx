@@ -87,7 +87,7 @@ export function PresenterControls() {
               disabled={tour ? isFirstStep : false}
               aria-label="Previous"
             >
-              <CaretLeft className="size-4" />
+              <CaretLeft className="size-4 text-neutral-500" weight="bold" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>Previous</TooltipContent>
@@ -103,9 +103,9 @@ export function PresenterControls() {
                 aria-label={tourPaused ? "Resume" : "Pause"}
               >
                 {tourPaused ? (
-                  <Play className="size-4" />
+                  <Play className="size-4 text-neutral-500" weight="bold" />
                 ) : (
-                  <Pause className="size-4" />
+                  <Pause className="size-4 text-neutral-500" weight="bold" />
                 )}
               </Button>
             </TooltipTrigger>
@@ -122,7 +122,7 @@ export function PresenterControls() {
               disabled={tour ? isLastStep : false}
               aria-label="Next"
             >
-              <CaretRight className="size-4" />
+              <CaretRight className="size-4 text-neutral-500" weight="bold" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>Next</TooltipContent>
@@ -136,7 +136,7 @@ export function PresenterControls() {
               onClick={handleResetView}
               aria-label="Reset view"
             >
-              <ArrowsClockwise className="size-4" />
+              <ArrowsClockwise className="size-4 text-neutral-500" weight="bold" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>Reset view</TooltipContent>
