@@ -68,7 +68,7 @@ function VariantChip({
       disabled={applying}
       title={variant.summary}
       className={cn(
-        "relative inline-flex items-center gap-2 rounded-lg border px-2.5 py-1.5 text-left transition-all",
+        "relative inline-flex items-center gap-2 rounded-xl border px-2.5 py-1.5 text-left transition-all",
         active
           ? "border-neutral-400 bg-neutral-100 text-neutral-900"
           : "border-neutral-200 bg-neutral-50 text-neutral-900 hover:bg-neutral-100 hover:border-neutral-300",
@@ -86,7 +86,7 @@ function VariantChip({
       </span>
       <span className="text-sm font-medium">{variant.title}</span>
       {applying && (
-        <span className="absolute inset-0 flex items-center justify-center rounded-lg bg-white/80 text-xs text-neutral-600 animate-pulse">
+        <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-white/80 text-xs text-neutral-600 animate-pulse">
           Applying…
         </span>
       )}

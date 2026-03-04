@@ -16,7 +16,7 @@ export function EnvironmentSwitcher() {
   const setEnvironment = useAppStore((s) => s.setEnvironment);
 
   return (
-    <div className="flex rounded-lg border bg-background/80 p-0.5">
+    <div className="flex rounded-xl border bg-background/80 p-0.5">
       {envs.map(({ id, label, Icon }) => (
         <Button
           key={id}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { useAppStore } from "@/lib/store/useAppStore";
 import { SuggestedChips } from "./SuggestedChips";
 import { CustomizationBlock } from "./CustomizationBlock";
@@ -11,8 +11,13 @@ import {
   Info,
   Question,
   ClipboardText,
+  X,
+  CaretLeft,
+  CaretRight,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+
+type LightboxState = { urls: string[]; index: number };
 
 const GENERAL_SUGGESTIONS = [
   { icon: Compass, label: "Explore rig", message: "Give me an overview of the drill rig" },
@@ -30,6 +35,31 @@ export function AssistantChat() {
     setLastJumpPoiId,
   } = useAppStore();
   const chatScrollRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+      if (e.key === "ArrowLeft") setLightbox((prev) => prev && { ...prev, index: (prev.index - 1 + prev.urls.length) % prev.urls.length });
+      if (e.key === "ArrowRight") setLightbox((prev) => prev && { ...prev, index: (prev.index + 1) % prev.urls.length });
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [lightbox]);
+
+  // Scroll strip so current thumbnail is visible
+  useEffect(() => {
+    if (!lightbox || !stripRef.current) return;
+    const el = stripRef.current.querySelector(`[data-index="${lightbox.index}"]`);
+    el?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, [lightbox?.index]);
 
   // Всегда внизу контента: подтягиваем скролл при любом наполнении (новое сообщение, стриминг)
   useLayoutEffect(() => {
@@ -106,22 +136,71 @@ export function AssistantChat() {
                 >
                   <div className="whitespace-pre-wrap">{m.content}</div>
                   {m.role === "assistant" && m.images && m.images.length > 0 && (
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {m.images.map((src, i) => (
-                        <div
-                          key={i}
-                          className="relative h-28 w-40 shrink-0 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100"
-                        >
-                          <Image
-                            src={src}
-                            alt=""
-                            fill
-                            className="object-cover"
-                            sizes="160px"
-                            unoptimized
-                          />
-                        </div>
-                      ))}
+                    <div className="mt-3 grid grid-cols-3 gap-1.5 max-w-md">
+                      <button
+                        type="button"
+                        onClick={() => setLightbox({ urls: m.images!, index: 0 })}
+                        className={`relative overflow-hidden border border-neutral-200 bg-neutral-100 cursor-pointer hover:opacity-95 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 ${
+                          m.images.length >= 2
+                            ? "col-span-2 row-span-2 min-h-[160px] rounded-l-xl"
+                            : "col-span-3 min-h-[180px] rounded-xl"
+                        }`}
+                      >
+                        <Image
+                          src={m.images[0]}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="320px"
+                          unoptimized
+                        />
+                      </button>
+                      {m.images.length >= 2 && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => setLightbox({ urls: m.images!, index: 1 })}
+                            className="relative aspect-square overflow-hidden rounded-tr-xl border border-neutral-200 border-l-0 bg-neutral-100 cursor-pointer hover:opacity-95 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2"
+                          >
+                            <Image
+                              src={m.images[1]}
+                              alt=""
+                              fill
+                              className="object-cover"
+                              sizes="140px"
+                              unoptimized
+                            />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => m.images![2] && setLightbox({ urls: m.images!, index: 2 })}
+                            disabled={!m.images[2]}
+                            className="relative aspect-square overflow-hidden rounded-br-xl border border-neutral-200 border-l-0 border-t-0 bg-neutral-100 cursor-pointer hover:opacity-95 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:opacity-100"
+                          >
+                            {m.images[2] ? (
+                              <>
+                                <Image
+                                  src={m.images[2]}
+                                  alt=""
+                                  fill
+                                  className="object-cover"
+                                  sizes="140px"
+                                  unoptimized
+                                />
+                                {m.images.length > 3 && (
+                                  <span className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-br-xl text-white font-semibold text-lg pointer-events-none">
+                                    +{m.images.length - 3}
+                                  </span>
+                                )}
+                              </>
+                            ) : (
+                              <span className="absolute inset-0 flex items-center justify-center bg-neutral-200/80 rounded-br-xl text-neutral-500 font-semibold text-lg">
+                                +{m.images.length - 2}
+                              </span>
+                            )}
+                          </button>
+                        </>
+                      )}
                     </div>
                   )}
                   {m.role === "assistant" && (m.poiId || m.suggestedChips?.length || m.jumpPoiId) && (
@@ -152,6 +231,84 @@ export function AssistantChat() {
           </div>
         )}
       </div>
+
+      {/* Lightbox: large photo, arrows, strip of all photos below */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col bg-black/90 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="View photo"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setLightbox(null)}
+            className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 text-neutral-700 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            aria-label="Close"
+          >
+            <X className="size-5" weight="bold" />
+          </button>
+
+          <div className="flex flex-1 items-center justify-center gap-2 min-h-0 w-full" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => setLightbox((prev) => prev && { ...prev, index: (prev.index - 1 + prev.urls.length) % prev.urls.length })}
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/90 text-neutral-700 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              aria-label="Previous photo"
+            >
+              <CaretLeft className="size-6" weight="bold" />
+            </button>
+
+            <div className="relative flex-1 flex items-center justify-center max-h-[70vh] min-w-0">
+              <Image
+                src={lightbox.urls[lightbox.index]}
+                alt=""
+                width={1200}
+                height={800}
+                className="max-h-[70vh] w-auto object-contain rounded-xl"
+                unoptimized
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setLightbox((prev) => prev && { ...prev, index: (prev.index + 1) % prev.urls.length })}
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/90 text-neutral-700 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              aria-label="Next photo"
+            >
+              <CaretRight className="size-6" weight="bold" />
+            </button>
+          </div>
+
+          <div
+            ref={stripRef}
+            className="mt-4 flex gap-2 overflow-x-auto overflow-y-hidden py-2 px-1 max-w-full scroll-smooth"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {lightbox.urls.map((url, i) => (
+              <button
+                key={`${url}-${i}`}
+                type="button"
+                data-index={i}
+                onClick={() => setLightbox((prev) => prev ? { ...prev, index: i } : null)}
+                className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-xl border-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white [&>img]:object-cover ${
+                  i === lightbox.index ? "border-white ring-2 ring-white" : "border-white/30 hover:border-white/60"
+                }`}
+              >
+                <Image
+                  src={url}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="96px"
+                  unoptimized
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

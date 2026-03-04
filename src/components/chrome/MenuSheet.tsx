@@ -88,7 +88,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 Theme
               </p>
-              <div className="flex rounded-lg border border-neutral-200 bg-neutral-100 p-0.5">
+              <div className="flex rounded-xl border border-neutral-200 bg-neutral-100 p-0.5">
                 {themes.map(({ id, label, Icon }) => (
                   <Button
                     key={id}
@@ -105,7 +105,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
             </section>
               <Separator className="my-0" />
               <section className="flex flex-col">
-                <div className="rounded-lg border border-neutral-200 bg-neutral-100/80 px-3 pt-3 pb-3 space-y-0">
+                <div className="rounded-xl border border-neutral-200 bg-neutral-100/80 px-3 pt-3 pb-3 space-y-0">
                   <label className="flex h-10 items-center justify-between gap-3 cursor-pointer">
                     <span className="text-sm font-medium text-foreground flex items-center gap-3">
                       <SpeakerHigh className="size-4 shrink-0 text-neutral-500" weight="bold" />
@@ -116,7 +116,7 @@ export function MenuSheet({ open, onOpenChange }: MenuSheetProps) {
                       onCheckedChange={(v) => setAudio("sound", v)}
                     />
                   </label>
-                  <div className="rounded-md bg-neutral-200/60 mt-2 py-1.5 px-2 space-y-0">
+                  <div className="rounded-xl bg-neutral-200/60 mt-2 py-1.5 px-2 space-y-0">
                     <label className="flex h-9 items-center justify-between gap-3 cursor-pointer px-1 rounded hover:bg-neutral-300/40">
                       <span className="text-sm text-foreground flex items-center gap-3">
                         <MusicNotes className="size-4 shrink-0 text-neutral-500" weight="bold" />

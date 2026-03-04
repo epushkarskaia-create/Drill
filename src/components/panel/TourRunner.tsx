@@ -67,7 +67,7 @@ export function TourRunner() {
           >
             <p className="text-base font-semibold text-neutral-900">Value & Advantages Tour</p>
             <p className="text-xs text-neutral-600 mt-0.5">3–5 min</p>
-            <span className="mt-2 inline-flex items-center gap-2 rounded-lg bg-neutral-100 px-2 py-1 text-sm text-neutral-900">
+            <span className="mt-2 inline-flex items-center gap-2 rounded-xl bg-neutral-100 px-2 py-1 text-sm text-neutral-900">
               <Play className="size-4 text-neutral-500" weight="bold" />
               Start tour
             </span>
@@ -79,7 +79,7 @@ export function TourRunner() {
           >
             <p className="text-base font-semibold text-neutral-900">How to Start / Pre-start Checks</p>
             <p className="text-xs text-neutral-600 mt-0.5">5–7 min</p>
-            <span className="mt-2 inline-flex items-center gap-2 rounded-lg bg-neutral-100 px-2 py-1 text-sm text-neutral-900">
+            <span className="mt-2 inline-flex items-center gap-2 rounded-xl bg-neutral-100 px-2 py-1 text-sm text-neutral-900">
               <Play className="size-4 text-neutral-500" weight="bold" />
               Start tour
             </span>
@@ -167,7 +167,7 @@ export function TourRunner() {
                     <p className="font-medium text-sm text-neutral-900">{poi?.title ?? step.poiId}</p>
                     <p className="text-xs text-neutral-600 mt-0.5">{step.narration}</p>
                     {step.safetyTag && (
-                      <span className="mt-1 inline-block rounded-lg bg-neutral-100 px-2 py-0.5 text-xs text-neutral-700">
+                      <span className="mt-1 inline-block rounded-xl bg-neutral-100 px-2 py-0.5 text-xs text-neutral-700">
                         {step.safetyTag}
                       </span>
                     )}

@@ -86,6 +86,28 @@ export const rig: Rig = {
 
 const baseUrl = "/rigs/dr20";
 
+/** Real photo of a drilling rig (Unsplash). Used for all POI media so catalog shows drilling systems, not generic pics. */
+const DRILL_RIG_PHOTO =
+  "https://images.unsplash.com/photo-1581092160562-40aa08e78837";
+
+/** Extra drilling/industrial photos from Unsplash (drill rig, field rig, machinery). */
+const DRILLING_PHOTOS = [
+  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
+  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop&crop=top&q=80",
+  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop&crop=center&q=80",
+  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop&crop=bottom&q=80",
+  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop&crop=left&q=80",
+  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop&crop=right&q=80",
+];
+
+/** Photos of drilling system parts (3–6 per POI). Uses real drilling rig imagery. */
+function poiPhotos(poiId: string, count: number): MediaItem[] {
+  return Array.from({ length: count }, (_, i) => ({
+    type: "image" as const,
+    imageUrl: DRILLING_PHOTOS[i % DRILLING_PHOTOS.length] ?? DRILL_RIG_PHOTO,
+  }));
+}
+
 export const sceneImages: Record<SceneMode, Record<Environment, string>> = {
   exterior: {
     desert: `${baseUrl}/exterior-desert.jpg`,
@@ -110,7 +132,7 @@ export const pois: POI[] = [
       { key: "width", label: "Width", value: "2.5", unit: "m" },
       { key: "height", label: "Transport height", value: "3.1", unit: "m" },
     ],
-    media: [{ type: "image", imageUrl: `${baseUrl}/exterior-desert.jpg` }],
+    media: poiPhotos("overview", 4),
     docs: [{ title: "DR-20 Brochure", url: "/docs/sample-spec.pdf" }],
     keywords: ["overview", "rig", "mobile"],
   },
@@ -126,7 +148,7 @@ export const pois: POI[] = [
       { key: "fuel", label: "Fuel type", value: "Diesel", unit: "" },
       { key: "torque", label: "Max torque", value: "4500", unit: "Nm" },
     ],
-    media: [],
+    media: poiPhotos("engine", 4),
     docs: [{ title: "Engine Spec Sheet", url: "/docs/sample-spec.pdf" }],
     keywords: ["engine", "power", "torque", "fuel", "diesel"],
   },
@@ -142,7 +164,7 @@ export const pois: POI[] = [
       { key: "angle", label: "Mast angle", value: "0–30°", unit: "" },
       { key: "pull", label: "Pull capacity", value: "25", unit: "kN" },
     ],
-    media: [],
+    media: poiPhotos("mast", 5),
     docs: [{ title: "Mast Technical Data", url: "/docs/sample-spec.pdf" }],
     keywords: ["mast", "drilling", "depth", "angle"],
   },
@@ -157,7 +179,7 @@ export const pois: POI[] = [
       { key: "pressure", label: "System pressure", value: "350", unit: "bar" },
       { key: "flow", label: "Flow rate", value: "45", unit: "L/min" },
     ],
-    media: [],
+    media: poiPhotos("hydraulics", 4),
     docs: [],
     keywords: ["hydraulics", "hydraulic", "pressure"],
   },
@@ -172,7 +194,7 @@ export const pois: POI[] = [
       { key: "seats", label: "Seats", value: "2", unit: "" },
       { key: "ac", label: "Climate", value: "HVAC", unit: "" },
     ],
-    media: [],
+    media: poiPhotos("cab", 5),
     docs: [],
     keywords: ["cab", "cabin", "operator", "cabinet"],
   },
@@ -187,7 +209,7 @@ export const pois: POI[] = [
       { key: "displays", label: "Displays", value: "2", unit: "" },
       { key: "controls", label: "Control type", value: "Electro-hydraulic", unit: "" },
     ],
-    media: [],
+    media: poiPhotos("cabin-interior", 6),
     docs: [],
     keywords: ["cabin", "interior", "controls", "operator"],
   },
@@ -202,7 +224,7 @@ export const pois: POI[] = [
       { key: "safety", label: "Safety level", value: "SIL 2", unit: "" },
       { key: "emergency", label: "E-stop", value: "Dual circuit", unit: "" },
     ],
-    media: [],
+    media: poiPhotos("control-panel", 3),
     docs: [{ title: "Operator Manual", url: "/docs/sample-spec.pdf" }],
     keywords: ["control", "panel", "safety", "start", "pre-start"],
   },

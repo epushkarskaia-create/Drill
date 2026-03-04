@@ -19,7 +19,7 @@ function ViewerContent() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background p-2 gap-2 items-stretch">
-      <main className="relative flex-1 flex flex-col min-w-0 min-h-0 rounded-2xl overflow-hidden">
+      <main className="relative flex-1 flex flex-col min-w-0 min-h-0 rounded-xl overflow-hidden">
         <RigViewer3D />
         <TopBar />
         <div className="absolute bottom-0 left-0 right-0 pointer-events-none px-4 pb-4 w-full box-border">

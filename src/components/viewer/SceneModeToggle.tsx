@@ -16,7 +16,7 @@ export function SceneModeToggle() {
   const setSceneMode = useAppStore((s) => s.setSceneMode);
 
   return (
-    <div className="flex rounded-lg border bg-background/80 p-0.5">
+    <div className="flex rounded-xl border bg-background/80 p-0.5">
       {modes.map(({ id, label, Icon }) => (
         <Button
           key={id}

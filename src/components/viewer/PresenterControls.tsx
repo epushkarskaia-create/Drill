@@ -77,7 +77,7 @@ export function PresenterControls() {
 
   return (
     <TooltipProvider>
-      <div className="flex items-center gap-1 rounded-lg border bg-background/90 p-1 shadow-sm">
+      <div className="flex items-center gap-1 rounded-xl border bg-background/90 p-1 shadow-sm">
         <Tooltip>
           <TooltipTrigger asChild>
             <Button

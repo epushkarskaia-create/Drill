@@ -35,7 +35,7 @@ export function TopBar() {
         </div>
         <div className="flex items-center gap-2">
           {!embed && (
-            <div className="rounded-lg border border-neutral-200 bg-white/95 p-0.5 shadow-sm">
+            <div className="rounded-xl border border-neutral-200 bg-white/95 p-0.5 shadow-sm">
               <Button
                 variant="ghost"
                 size="icon-sm"
@@ -47,7 +47,7 @@ export function TopBar() {
               </Button>
             </div>
           )}
-          <div className="rounded-lg border border-neutral-200 bg-white/95 p-0.5 shadow-sm">
+          <div className="rounded-xl border border-neutral-200 bg-white/95 p-0.5 shadow-sm">
             <Button
               variant="ghost"
               size="icon-sm"

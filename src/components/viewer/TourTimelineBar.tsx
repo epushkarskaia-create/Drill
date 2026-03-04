@@ -153,7 +153,7 @@ export function TourTimelineBar() {
               key={tourId}
               size="sm"
               variant="ghost"
-              className="h-9 gap-1.5 rounded-lg border border-neutral-200 bg-neutral-50 text-neutral-900 hover:bg-neutral-100 hover:border-neutral-300 px-3"
+              className="h-9 gap-1.5 rounded-xl border border-neutral-200 bg-neutral-50 text-neutral-900 hover:bg-neutral-100 hover:border-neutral-300 px-3"
               onClick={() => handleStartTour(tourId)}
               aria-label={label}
             >
@@ -161,13 +161,13 @@ export function TourTimelineBar() {
               {label}
             </Button>
           ))}
-          <div className="flex shrink-0 items-center gap-0.5 rounded-lg border border-neutral-200 bg-neutral-50 p-0.5 ml-auto">
+          <div className="flex shrink-0 items-center gap-0.5 rounded-xl border border-neutral-200 bg-neutral-50 p-0.5 ml-auto">
             <Button
               variant="ghost"
               size="icon-sm"
               onClick={handlePrevPoi}
               aria-label="Previous point"
-              className="h-7 w-7 rounded-md text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900"
+              className="h-7 w-7 rounded-xl text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900"
             >
               <CaretLeft className="size-3.5 text-neutral-500" weight="bold" />
             </Button>
@@ -176,7 +176,7 @@ export function TourTimelineBar() {
               size="icon-sm"
               onClick={handleNextPoi}
               aria-label="Next point"
-              className="h-7 w-7 rounded-md text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900"
+              className="h-7 w-7 rounded-xl text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900"
             >
               <CaretRight className="size-3.5 text-neutral-500" weight="bold" />
             </Button>
@@ -185,7 +185,7 @@ export function TourTimelineBar() {
               size="icon-sm"
               onClick={handleResetView}
               aria-label="Reset view"
-              className="h-7 w-7 rounded-md text-neutral-600 hover:bg-neutral-200"
+              className="h-7 w-7 rounded-xl text-neutral-600 hover:bg-neutral-200"
             >
               <ArrowsClockwise className="size-3.5 text-neutral-500" weight="bold" />
             </Button>
@@ -210,11 +210,11 @@ export function TourTimelineBar() {
                 {tourStepIndex + 1}/{steps.length}
               </span>
             </div>
-            <div className="flex shrink-0 items-center gap-0.5 rounded-lg border border-neutral-200 bg-neutral-50 p-0.5 ml-auto">
+            <div className="flex shrink-0 items-center gap-0.5 rounded-xl border border-neutral-200 bg-neutral-50 p-0.5 ml-auto">
               <Button
                 variant="ghost"
                 size="icon-sm"
-                className="h-7 w-7 rounded-md text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900"
+                className="h-7 w-7 rounded-xl text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900"
                 onClick={handleStopTour}
                 aria-label="Exit tour"
               >
@@ -223,7 +223,7 @@ export function TourTimelineBar() {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                className="h-7 w-7 rounded-md"
+                className="h-7 w-7 rounded-xl"
                 onClick={handlePrev}
                 disabled={isFirstStep}
                 aria-label="Previous"
@@ -233,7 +233,7 @@ export function TourTimelineBar() {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                className="h-7 w-7 rounded-md text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900"
+                className="h-7 w-7 rounded-xl text-neutral-600 hover:bg-neutral-200 hover:text-neutral-900"
                 onClick={handleNext}
                 disabled={isLastStep}
                 aria-label="Next"
@@ -243,7 +243,7 @@ export function TourTimelineBar() {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                className="h-7 w-7 rounded-md text-neutral-600 hover:bg-neutral-200"
+                className="h-7 w-7 rounded-xl text-neutral-600 hover:bg-neutral-200"
                 onClick={handleResetView}
                 aria-label="Reset view"
               >

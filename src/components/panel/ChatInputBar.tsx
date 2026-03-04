@@ -19,7 +19,7 @@ export function ChatInputBar() {
 
   return (
     <div className="border-t border-neutral-200 p-2 shrink-0">
-      <div className="flex items-center gap-2 rounded-2xl bg-neutral-200 px-2 py-1.5 focus-within:ring-2 focus-within:ring-neutral-300">
+      <div className="flex items-center gap-2 rounded-xl bg-neutral-200 px-2 py-1.5 focus-within:ring-2 focus-within:ring-neutral-300">
         <input
           type="text"
           placeholder="Ask anything"

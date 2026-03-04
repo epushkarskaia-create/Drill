@@ -44,7 +44,7 @@ export function EnvironmentSceneButton() {
 
   return (
     <div className="relative">
-      <div className="rounded-lg border border-neutral-200 bg-white/95 p-0.5 shadow-sm">
+      <div className="rounded-xl border border-neutral-200 bg-white/95 p-0.5 shadow-sm">
         <Button
           ref={buttonRef}
           variant="ghost"
@@ -65,7 +65,7 @@ export function EnvironmentSceneButton() {
           <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">
             Environment
           </p>
-          <div className="flex rounded-lg border border-neutral-200 bg-neutral-100 p-0.5 mb-3">
+          <div className="flex rounded-xl border border-neutral-200 bg-neutral-100 p-0.5 mb-3">
             {environments.map(({ id, label: l }) => (
               <Button
                 key={id}
@@ -81,7 +81,7 @@ export function EnvironmentSceneButton() {
           <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">
             Scene
           </p>
-          <div className="flex rounded-lg border border-neutral-200 bg-neutral-100 p-0.5">
+          <div className="flex rounded-xl border border-neutral-200 bg-neutral-100 p-0.5">
             {sceneModes.map(({ id, label: l }) => (
               <Button
                 key={id}

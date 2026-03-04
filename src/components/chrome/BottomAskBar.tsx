@@ -82,7 +82,7 @@ export function BottomAskBar() {
         <input
           type="text"
           placeholder="Ask about the rig…"
-          className="flex-1 min-h-[44px] rounded-lg border border-input bg-background/95 px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex-1 min-h-[44px] rounded-xl border border-input bg-background/95 px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
